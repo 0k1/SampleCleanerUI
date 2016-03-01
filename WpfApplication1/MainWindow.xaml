@@ -1,0 +1,44 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="720" Width="1280" Background="{DynamicResource BackgroundBrush}">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="43"
+            CornerRadius="25,25,10,10"
+            GlassFrameThickness="0">
+        </WindowChrome>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="125*"/>
+            <ColumnDefinition Width="193*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="654*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#33000000" Grid.ColumnSpan="2">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="44,5.667,0,10" TextWrapping="Wrap" Text="System Cleaner" Width="166.333" Foreground="White" FontSize="16"/>
+            <StackPanel HorizontalAlignment="Right" Margin="0,5.667,27,4.333" Orientation="Horizontal">
+                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FFF4F4F5"/>
+                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FFA7BB00"/>
+                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FF7A0000"/>
+            </StackPanel>
+        </Grid>
+        <ListView x:Name="listView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
