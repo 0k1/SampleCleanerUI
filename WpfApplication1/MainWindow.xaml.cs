@@ -41,8 +41,8 @@ namespace WpfApplication1
 
         private void UpdateContentVisibility()
         {
-            if (listBox.SelectedIndex > 0)
-                ContentTextBlock.Visibility = Visibility.Visible;
+            if (listBox.SelectedIndex > -1)
+                FieldPresenter.Visibility = Visibility.Visible;
         }
     }
 }

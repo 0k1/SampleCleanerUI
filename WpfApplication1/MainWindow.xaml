@@ -89,12 +89,12 @@
             </StackPanel>
         </Grid>
         <ListBox x:Name="listBox" SelectionChanged="listBox_SelectionChanged" ItemTemplate="{DynamicResource ItemTemplate}" ItemsSource="{Binding Collection}"  Grid.Row="1" Style="{DynamicResource ListBoxStyle1}"/>
-        <Grid  Grid.Row="1" Grid.Column="1" x:Name="FieldPresenter">
-            <Border Background="White" Opacity=".2" CornerRadius="20" Margin="0,20,20,20"/>
+        <Border Grid.Row="1" Grid.Column="1" Background="White" Opacity=".2" CornerRadius="20" Margin="0,20,20,20"/>
+        <Grid  Grid.Row="1" Grid.Column="1" x:Name="FieldPresenter" Visibility="Collapsed">
             <Grid  Margin="20,30,0,0">
                 <StackPanel>
             <TextBlock x:Name="SubHeader" Style="{StaticResource DefaultTextStyle}" FontSize="40" />
-                    <TextBlock x:Name="ContentTextBlock" Visibility="Collapsed" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae lectus elit. Nullam quam tellus, bibendum sed mi eu, viverra accumsan magna. Cras euismod mauris ut hendrerit posuere. Pellentesque sodales eget tellus vel dictum. Proin mollis mi sit amet aliquet tincidunt. Praesent eget velit sit amet ligula bibendum efficitur sit amet sed eros. Nulla facilisi. Sed volutpat dui orci, non viverra sem luctus eget." TextWrapping="Wrap" Style="{StaticResource DefaultTextStyle}" FontSize="20" Margin="20,0,50,10"/>
+                    <TextBlock x:Name="ContentTextBlock" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae lectus elit. Nullam quam tellus, bibendum sed mi eu, viverra accumsan magna. Cras euismod mauris ut hendrerit posuere. Pellentesque sodales eget tellus vel dictum. Proin mollis mi sit amet aliquet tincidunt. Praesent eget velit sit amet ligula bibendum efficitur sit amet sed eros. Nulla facilisi. Sed volutpat dui orci, non viverra sem luctus eget." TextWrapping="Wrap" Style="{StaticResource DefaultTextStyle}" FontSize="20" Margin="20,0,50,10"/>
                 </StackPanel>
                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,80,100" Style="{DynamicResource CleanButtonStyle}">
                 <Border CornerRadius="50" Background="#7F00B400" Height="60" Width="210">
