@@ -6,17 +6,71 @@
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d" 
         Title="MainWindow" Height="720" Width="1280" Background="{DynamicResource BackgroundBrush}">
+    <Window.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <TextBlock Text="{Binding Property1}" Style="{DynamicResource DefaultTextStyle}"/>
+        </DataTemplate>
+        <Style x:Key="DefaultTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="10,0,0,10"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+        <Style x:Key="FocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CleanButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="6"
-            CaptionHeight="43"
+            CaptionHeight="10"
             CornerRadius="25,25,10,10"
             GlassFrameThickness="0">
         </WindowChrome>
     </WindowChrome.WindowChrome>
 
-    <Grid>
+    <Grid DataContext="{Binding Source={StaticResource Fields}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125*"/>
             <ColumnDefinition Width="193*"/>
@@ -25,20 +79,26 @@
             <RowDefinition Height="35*"/>
             <RowDefinition Height="654*"/>
         </Grid.RowDefinitions>
+
         <Grid Background="#33000000" Grid.ColumnSpan="2">
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="44,5.667,0,10" TextWrapping="Wrap" Text="System Cleaner" Width="166.333" Foreground="White" FontSize="16"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="20,5.667,0,10" TextWrapping="Wrap" Text="System Cleaner" Width="166.333" Foreground="White" FontSize="16"/>
             <StackPanel HorizontalAlignment="Right" Margin="0,5.667,27,4.333" Orientation="Horizontal">
-                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FFF4F4F5"/>
-                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FFA7BB00"/>
-                <Button Style="{StaticResource TransparentButtonStyle}" Background="#FF7A0000"/>
+                <Button Click="Button_Click_1" Style="{StaticResource TransparentButtonStyle}" Background="#FFF4F4F5"/>
+                <Button  Click="Button_Click_2" Style="{StaticResource TransparentButtonStyle}" Background="#FFA7BB00"/>
+                <Button Click="Button_Click"  Style="{StaticResource TransparentButtonStyle}" Background="#FF7A0000"/>
             </StackPanel>
         </Grid>
-        <ListView x:Name="listView" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <ListBox x:Name="listBox" SelectionChanged="listBox_SelectionChanged" ItemTemplate="{DynamicResource ItemTemplate}" ItemsSource="{Binding Collection}"  Grid.Row="1" Style="{DynamicResource ListBoxStyle1}"/>
+        <Grid  Grid.Row="1" Grid.Column="1" x:Name="FieldPresenter">
+            <Border Background="White" Opacity=".2" CornerRadius="20" Margin="0,20,20,20"/>
+            <Grid  Margin="20,30,0,0">
+            <TextBlock x:Name="SubHeader" Style="{StaticResource DefaultTextStyle}" FontSize="40" />
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,80,100" Style="{DynamicResource CleanButtonStyle}">
+                <Border CornerRadius="50" Background="#7F00B400" Height="60" Width="210">
+                    <TextBlock Text="Clean!" Style="{StaticResource DefaultTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" />
+                </Border>
+            </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
